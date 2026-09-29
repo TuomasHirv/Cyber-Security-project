@@ -2,11 +2,60 @@
 
 Project for the course Cyber Security Base 2026
 
+## Running the app
+
+This app is **deliberately insecure**. Run it only locally on `127.0.0.1` — never deploy it or expose it to a network.
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/<your-username>/Cyber-Security-project.git
+cd Cyber-Security-project
+```
+
+### 2. Create and activate a virtual environment
+
+```bash
+python -m venv venv
+# Windows:
+venv\Scripts\activate
+# macOS / Linux:
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install django
+```
+
+### 4. Build the database
+
+If migrations and the database file aren't tracked in git, create them:
+
+```bash
+python manage.py makemigrations core
+python manage.py migrate
+```
+
+Otherwise:
+
+```bash
+python manage.py migrate
+```
+
+### 5. Run the development server
+
+```bash
+python manage.py runserver
+```
+
 # LISTED SECURITY FAILURES
 
 ### 1. Broken Access Control
 
 Problem: Identity of user is carried on a tamperable user_id cookie. Changing it makes you appear as another user.
+Sub problem: No CSRF token on delete POST request. This is covered later in injection section.
 
 ![alt text](screenshots/BAC-1.png)
 
@@ -56,7 +105,8 @@ Requires refreshing the website.
 
 ![alt text](screenshots/CF-3.png)
 
-FIX: Remove the |safe tag.
+FIX(CSS): Remove the |safe tag. Change the GET method to POST so it has CSRF key included
+FIX(SQL): Parametrize the query so users can't inject anything in to it.
 
 ### 4. Identification & Authentication Failures
 
