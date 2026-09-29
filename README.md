@@ -4,8 +4,6 @@ Project for the course Cyber Security Base 2026
 
 ## Running the app
 
-This app is **deliberately insecure**. Run it only locally on `127.0.0.1` — never deploy it or expose it to a network.
-
 ### 1. Clone the repository
 
 ```bash
@@ -92,7 +90,8 @@ with connection.cursor() as cursor:
    ![alt text](screenshots/SQL-inj-2.png)
 
 4. Now logged in
-   Also you can inject Scripts in to the post body since:
+
+Also you can inject Scripts in to the post body since:
 
 ```html
 <p>{{ blog.body|safe }}</p>
