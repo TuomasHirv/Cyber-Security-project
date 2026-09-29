@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All posts</title>
+  </head>
+  <a href="/posts/new/"> ADD NEW POST </a>
+  <div>
+    <a href="/login/"> LOGIN </a>
+  </div>
+  <body>
+    <h1>All blog posts</h1>
+
+    {% for blog in blogs %}
+    <article style="border: 1px solid #ccc; padding: 1rem; margin-bottom: 1rem">
+      <h2>{{ blog.title }}</h2>
+      <!-- Marked as |safe so it can contain scripts and lead to XSS attack -->
+      <p>{{ blog.body|safe }}</p>
+      <!--Fixed version-->
+      <!--<p>{{ blog.body }}</p>-->
+      <small>by {{ blog.creator }}</small>
+      <!-- This only works on the insecure version-->
+      <a href="{% url 'delete_post' blog.id %}"> DELETE </a>
+      <!-- Fixed version -->
+      <!--
+        <form method="post" action="{% url 'delete_post' blog.id %}" style="display:inline">
+            {% csrf_token %}
+            <button type="submit">DELETE</button>
+        </form>
+        -->
+    </article>
+    {% empty %}
+    <p>No posts yet.</p>
+    {% endfor %}
+  </body>
+</html>

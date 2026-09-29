@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+  </head>
+  <body>
+    <h1>Create an account</h1>
+
+    <form method="post" action="{% url 'register' %}">
+      {% csrf_token %}
+
+      <label for="username">Username</label><br />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        value="{{ username|default:'' }}"
+        required
+      /><br />
+
+      <label for="password">Password</label><br />
+      <input type="password" id="password" name="password" required /><br />
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p><a href="{% url 'login' %}">Already have an account?</a></p>
+  </body>
+</html>

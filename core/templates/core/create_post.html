@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>New post</title>
+  </head>
+  <body>
+    <h1>New blog post</h1>
+
+    <form method="post" action="{% url 'create_post' %}">
+      {% csrf_token %}
+      <label for="title">Title</label><br />
+      <input
+        type="text"
+        id="title"
+        name="title"
+        value="{{ title|default:'' }}"
+        required
+      /><br />
+
+      <label for="body">Body</label><br />
+      <textarea id="body" name="body" required>{{ body|default:'' }}</textarea
+      ><br />
+
+      <button type="submit">Publish</button>
+    </form>
+  </body>
+</html>
