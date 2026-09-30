@@ -171,7 +171,8 @@ FIX: add logging that stores important details to a file. Ideally you would want
 But for the purpose of this course it gets stored in security.log.
 
 This example came about from natural testing:
-´´´
+
+´´´txt
 2026-09-30 14:04:16,099 WARNING Failed register username='NewAndCorrect' ip=REMOVED_FROM_SCREENSHOT
 2026-09-30 14:12:59,279 INFO Successful login user_id=7 ip=REMOVED_FROM_SCREENSHOT
 2026-09-30 14:13:23,033 INFO Successful login user_id=7 ip=REMOVED_FROM_SCREENSHOT
