@@ -90,6 +90,8 @@ with connection.cursor() as cursor:
             row = cursor.fetchone()
 ```
 
+Before starting remember to create a user into the database with register.
+
 1. In username field write:' UNION SELECT 1, 'pw' --
 2. In password field write: pw
 
@@ -114,13 +116,15 @@ Requires refreshing the website.
 
 ![alt text](screenshots/CF-3.png)
 
-FIX(CSS): Remove the |safe tag. Change the GET method to POST so it has CSRF key included
+FIX(XSS): Remove the |safe tag. Change the GET method to POST so it has CSRF key included
 After removing the safe tag. The body text isn't treated as a script and renders as text:
 
 ![alt text](screenshots/CF-7.png)
 
 FIX(SQL): Parametrize the query so users can't inject anything in to it.
-Technically the checks already force that specific injection to not work.
+The new password rule already blocks this payload (the password pw is too short).
+But even if you remove that rule, the parameterized query treats the whole input as a literal username, so the injection still fails,
+which proves the parameterization is what actually fixes it.
 But if we remove them for a test we find that injection no longer works.
 
 ![alt text](screenshots/CF-6.png)
@@ -189,3 +193,7 @@ This example came about from natural testing:
 
 Since this is still a part of the same program it is possibly vulnerable to being deleted by a party that gains access to it.
 That should be fixed when creating production software.
+
+### NOTES:
+
+- There are 2 different registering systems and swapping them might make users created before to not work.
