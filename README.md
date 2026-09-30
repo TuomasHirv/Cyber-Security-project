@@ -172,7 +172,6 @@ But for the purpose of this course it gets stored in security.log.
 
 This example came about from natural testing:
 
-´´´txt
 2026-09-30 14:04:16,099 WARNING Failed register username='NewAndCorrect' ip=REMOVED_FROM_SCREENSHOT
 2026-09-30 14:12:59,279 INFO Successful login user_id=7 ip=REMOVED_FROM_SCREENSHOT
 2026-09-30 14:13:23,033 INFO Successful login user_id=7 ip=REMOVED_FROM_SCREENSHOT
@@ -182,7 +181,6 @@ This example came about from natural testing:
 2026-09-30 14:23:34,180 WARNING Failed login username='None existent' ip=REMOVED_FROM_SCREENSHOT
 2026-09-30 14:30:48,418 WARNING Attempted to log to none existent user username='DOesnt Exist' ip=REMOVED_FROM_SCREENSHOT
 2026-09-30 14:31:24,840 WARNING Incorrect password on login username='admin' ip=REMOVED_FROM_SCREENSHOT
-´´´
 
 - 2 Attempted incorrect method on delete come from the XSS script that was stored as a post.
 - First failed login shows the username used in the SQL injection attempt.
