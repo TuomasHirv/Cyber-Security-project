@@ -122,7 +122,7 @@ When the author of blog, with the id 3, views this script it automatically delet
 FIX(XSS): Remove the |safe tag. Change the GET method to POST so it has CSRF key included
 After removing the safe tag. The body text isn't treated as a script and renders as text:
 
-![alt text](screenshots/CF-7.png)
+![alt text](screenshots/flaw-3-after-1.png)
 
 FIX(SQL): Parametrize the query so users can't inject anything in to it.
 The new password rule already blocks this payload (the password pw is too short).
@@ -130,7 +130,7 @@ But even if you remove that rule, the parameterized query treats the whole input
 which proves the parameterization is what actually fixes it.
 But if we remove them for a test we find that injection no longer works.
 
-![alt text](screenshots/CF-6.png)
+![alt text](screenshots/flaw-3-after-2.png)
 
 ### 4. Identification & Authentication Failures
 
