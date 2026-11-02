@@ -57,6 +57,10 @@ Sub problem: No CSRF token on delete POST request. This is covered later in inje
 
 ![alt text](screenshots/flaw-1-before-1.png)
 
+Changing directly from the browser allows user 1 to become user 2.
+
+![alt text](screenshots/flaw-1-before-2.png)
+
 FIX: Used Djangos server side sessions. Now changing client-side cookie is rejected.
 
 ![alt text](screenshots/flaw-1-after-1.png)
@@ -65,13 +69,9 @@ FIX: Used Djangos server side sessions. Now changing client-side cookie is rejec
 
 Problem: Passwords are stored as plaintext in database. If a hacker gets them they immediately see passwords.
 
-![alt text](screenshots/CF-1.png)
+![alt text](screenshots/flaw-2-before-1.png)
 
 FIX: Using hashing on all passwords.
-
-Side note I also demand stronger passwords:
-
-![alt text](screenshots/CF-4.png)
 
 Now passwords are stored as hashses. Much more difficult to get through
 
@@ -92,14 +92,16 @@ with connection.cursor() as cursor:
 
 Before starting remember to create a user into the database with register.
 
+Then go to login and do the following:
+
 1. In username field write:' UNION SELECT 1, 'pw' --
 2. In password field write: pw
 
-   ![alt text](screenshots/SQL-inj-1.png)
+   ![alt text](screenshots/flaw-3-before-1.png)
 
 3. Press login
 
-   ![alt text](screenshots/SQL-inj-2.png)
+   ![alt text](screenshots/flaw-3-before-2.png)
 
 4. Now logged in
 
@@ -110,7 +112,7 @@ Also you can inject Scripts in to the post body since:
 ```
 
 ![alt text](screenshots/CF-2.png)
-The hidden bodytext contains: <script>fetch('/posts/delete/5/')</script>
+The hidden bodytext contains: <script>fetch('/posts/delete/3/')</script>
 Which when viewed by the author of post "asdasdasdasdasd" will delete it.
 Requires refreshing the website.
 

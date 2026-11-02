@@ -145,9 +145,9 @@ def login_view(request):
 # The problem with posts is that the render_blogs.html allows for scripts in the body
 # Also uses the insecure COOKIE format
 def create_post(request):
-    #user_id = request.COOKIES.get("user_id") or ""
+    user_id = request.COOKIES.get("user_id") or ""
     #FIXED:
-    user_id = request.session.get("user_id")
+    #user_id = request.session.get("user_id")
     if not user_id:
         security_logger.warning("Attempted to post without logging: %s", client_ip(request))
         return redirect("/login")
