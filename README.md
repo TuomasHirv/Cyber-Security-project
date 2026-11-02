@@ -132,6 +132,10 @@ But if we remove them for a test we find that injection no longer works.
 
 ![alt text](screenshots/flaw-3-after-2.png)
 
+After pressing login the injection doesn't work.
+
+You can see this by the fact that there is no session id on the image below.
+
 ![alt text](screenshots/flaw-3-after-3.png)
 
 ### 4. Identification & Authentication Failures
@@ -157,18 +161,21 @@ You can see here that someone who tries account usernames randomly will find whi
 
 FIX:
 
-- Strict passwords required: +6 char and 1 digit. (Covered in part 1)
+- Strict passwords required: +6 char and 1 digit.
 - Hashing. (Covered in part 1)
 - One generic not authorized instead of multiple.
 - Timing equialization. (Hash a password even if user not found.)
 
 1st example revisited with fix:
 
-![alt text](screenshots/IAF-3.png)
+![alt text](screenshots/flaw-4-after-1.png)
 
 2nd example revisited with fix:
 
-![alt text](screenshots/IAF-4.png)
+![alt text](screenshots/flaw-4-after-2.png)
+
+also showcasing the error given for weak passwords:
+![alt text](screenshots/flaw-4-after-3.png)
 
 Now enumerating users is much harder
 
