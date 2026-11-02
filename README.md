@@ -55,11 +55,11 @@ python manage.py runserver
 Problem: Identity of user is carried on a tamperable user_id cookie. Changing it makes you appear as another user.
 Sub problem: No CSRF token on delete POST request. This is covered later in injection section.
 
-![alt text](screenshots/BAC-1.png)
+![alt text](screenshots/flaw-1-before-1.png)
 
 FIX: Used Djangos server side sessions. Now changing client-side cookie is rejected.
 
-![alt text](screenshots/BAC-2.png)
+![alt text](screenshots/flaw-1-after-1.png)
 
 ### 2. Cryptographic Failures.
 
