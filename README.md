@@ -75,7 +75,7 @@ FIX: Using hashing on all passwords.
 
 Now passwords are stored as hashses. Much more difficult to get through
 
-![alt text](screenshots/CF-5.png)
+![alt text](screenshots/flaw-2-after-1.png)
 
 ### 3. Injection.
 
@@ -131,6 +131,8 @@ which proves the parameterization is what actually fixes it.
 But if we remove them for a test we find that injection no longer works.
 
 ![alt text](screenshots/flaw-3-after-2.png)
+
+![alt text](screenshots/flaw-3-after-3.png)
 
 ### 4. Identification & Authentication Failures
 
