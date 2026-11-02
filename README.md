@@ -111,12 +111,13 @@ Also you can inject Scripts in to the post body since:
 <p>{{ blog.body|safe }}</p>
 ```
 
-![alt text](screenshots/CF-2.png)
-The hidden bodytext contains: <script>fetch('/posts/delete/3/')</script>
-Which when viewed by the author of post "asdasdasdasdasd" will delete it.
-Requires refreshing the website.
+In this example User has created a blog post and jarkko has created a post with a xss script.
+![alt text](screenshots/flaw-3-before-3.png)
 
-![alt text](screenshots/CF-3.png)
+The hidden bodytext contains: <script>fetch('/posts/delete/3/')</script>
+When the author of blog, with the id 3, views this script it automatically deletes his post.
+(Sometimes requires a refresh!)
+![alt text](screenshots/flaw-3-before-4.png)
 
 FIX(XSS): Remove the |safe tag. Change the GET method to POST so it has CSRF key included
 After removing the safe tag. The body text isn't treated as a script and renders as text:
@@ -135,19 +136,22 @@ But if we remove them for a test we find that injection no longer works.
 
 Problem: Insecure password allowed. Username enumeration is easy with distinct error messages for wrong password vs no user.
 
+(To recreate this you need to have a user named admin and no user named None existent)
 Example:
 Username: None existent
 Password: Password
 Result:
 
-![alt text](screenshots/IAF-1.png)
+![alt text](screenshots/flaw-4-before-1.png)
 
 2nd Example:
 Username: admin
 Password: hmmmm
 Result:
 
-![alt text](screenshots/IAF-2.png)
+![alt text](screenshots/flaw-4-before-2.png)
+
+You can see here that someone who tries account usernames randomly will find which do exist.
 
 FIX:
 
