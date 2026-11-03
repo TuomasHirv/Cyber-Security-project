@@ -184,12 +184,20 @@ Now enumerating users is much harder
 Problem: Nothing logs to an external service. Only place to see failed logins or such is on the host console.
 Logs also lack any relevant information like IP.
 
-![alt text](screenshots/SLMF-1.png)
+Here I have manually attempted to login multiple times and failing.
+![alt text](screenshots/flaw-5-before-1.png)
+
+No record is kept of this interaction and if i were to do this with a dedicated software for bruteforcing there would be no trace left.
 
 FIX: add logging that stores important details to a file. Ideally you would want to host another service like tracing to do this.
 But for the purpose of this course it gets stored in security.log.
 
-This example came about from natural testing:
+Now I will do the same after having turned on security_logger:
+![alt text](screenshots/flaw-5-after-1.png)
+
+This log should also be sent to an external logging application or database.
+Building a new application would be out of scope for this project, but I have represented this external application as a file.
+This sample of the file came from testing the website naturally:
 
 ```
 2026-09-30 14:04:16,099 WARNING Failed register username='NewAndCorrect' ip=REMOVED_FROM_SCREENSHOT
