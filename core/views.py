@@ -44,75 +44,75 @@ def render_blogs(request):
     return render(request, "core/render_blogs.html", {"blogs": blogs})
 
 
-#def register_view(request):
-#    if request.method == "POST":
-#        username = request.POST.get("username", "")
-#        password = request.POST.get("password", "")
-#       # Purposefully allowing weak passwords
-#        if len(username) < 2 or len(password) < 2:
-#           return render(request, "core/error_state.html", {"error": "Username or password too short!"}, status=400)
-#      # Storing password as plaintext not hashed.
-#        with connection.cursor() as cursor:
-#            cursor.execute(
-#                f"INSERT INTO core_user (username, password) VALUES (%s, %s)",
-#                [username, password],
-#            )
-#            id = cursor.lastrowid
-#        if id != None:
-#            return redirect("/login")
-
-#    return render(request, "core/register.html")
-
-
-# FIXED VERSION:
 def register_view(request):
     if request.method == "POST":
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
-        if len(password) < 6 or not any(c.isdigit() for c in password):#
-           security_logger.warning("Failed register username=%r ip=%s", username, client_ip(request))
-           return render(request, "core/error_state.html", {"error": "Password has to be +6 char and atleast 1 number!"}, status=400)
+       # Purposefully allowing weak passwords
+        if len(username) < 2 or len(password) < 2:
+           return render(request, "core/error_state.html", {"error": "Username or password too short!"}, status=400)
+      # Storing password as plaintext not hashed.
         with connection.cursor() as cursor:
             cursor.execute(
-               f"INSERT INTO core_user (username, password) VALUES (%s, %s)",
-                [username, hash_password(password)],
+                f"INSERT INTO core_user (username, password) VALUES (%s, %s)",
+                [username, password],
             )
             id = cursor.lastrowid
         if id != None:
-            security_logger.info("Successful login user_id=%s ip=%s", id, client_ip(request))
             return redirect("/login")
 
     return render(request, "core/register.html")
 
-#def login_view(request):
+
+# FIXED VERSION:
+#def register_view(request):
 #    if request.method == "POST":
 #        username = request.POST.get("username", "")
 #        password = request.POST.get("password", "")
-#        # Purposefully allowing weak passwords
-#        if len(username) < 2 or len(password) < 2:
-#            return render(request, "core/error_state.html", {"error": "Username or password too short!"})
-#        # Allowing injection by inserting the value directly into query.
+#        if len(password) < 6 or not any(c.isdigit() for c in password):#
+#           security_logger.warning("Failed register username=%r ip=%s", username, client_ip(request))
+#           return render(request, "core/error_state.html", {"error": "Password has to be +6 char and atleast 1 number!"}, status=400)
 #        with connection.cursor() as cursor:
 #            cursor.execute(
-#                f"SELECT id, password FROM core_user WHERE username = '{username}' LIMIT 1",
-#                [],
+#               f"INSERT INTO core_user (username, password) VALUES (%s, %s)",
+#                [username, hash_password(password)],
 #            )
-#            row = cursor.fetchone()
-#        # Here we have 2 distinct responses for wrong username or wrong password
-#        # This is already leaking information to an attacker
-#        if not row:
-#            return render(request, "core/login.html", {"error": "No account for that username."}, status=404)
-#       if row[1] != password:
-#            return render(request, "core/login.html", {"error": "Password doesn't match to account."}, status=403)
+#            id = cursor.lastrowid
+#        if id != None:
+#            security_logger.info("Successful login user_id=%s ip=%s", id, client_ip(request))
+#            return redirect("/login")
 #
-#        response = redirect("/")
-#        response.set_cookie("user_id", str(row[0]))
-#        return response
+#    return render(request, "core/register.html")
 
-#    return render(request, "core/login.html")
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username", "")
+        password = request.POST.get("password", "")
+        # Purposefully allowing weak passwords
+        if len(username) < 2 or len(password) < 2:
+            return render(request, "core/error_state.html", {"error": "Username or password too short!"})
+        # Allowing injection by inserting the value directly into query.
+        with connection.cursor() as cursor:
+            cursor.execute(
+                f"SELECT id, password FROM core_user WHERE username = '{username}' LIMIT 1",
+                [],
+            )
+            row = cursor.fetchone()
+        # Here we have 2 distinct responses for wrong username or wrong password
+        # This is already leaking information to an attacker
+        if not row:
+            return render(request, "core/login.html", {"error": "No account for that username."}, status=404)
+        if row[1] != password:
+            return render(request, "core/login.html", {"error": "Password doesn't match to account."}, status=403)
+
+        response = redirect("/")
+        response.set_cookie("user_id", str(row[0]))
+        return response
+
+    return render(request, "core/login.html")
 
 #FIXED VERSION:
-def login_view(request):
+#def login_view(request):
     if request.method == "POST":
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
