@@ -115,7 +115,7 @@ def login_view(request):
 #def login_view(request):
 #    if request.method == "POST":
 #        username = request.POST.get("username", "")
-#       password = request.POST.get("password", "")
+#        password = request.POST.get("password", "")
 #        if len(password) < 6 or not any(c.isdigit() for c in password):
 #           security_logger.warning("Failed login username=%r ip=%s", username, client_ip(request))
 #           return render(request, "core/error_state.html", {"error": "Password has to be +6 char and atleast 1 number!"})
