@@ -113,32 +113,32 @@ def login_view(request):
 
 #FIXED VERSION:
 #def login_view(request):
-    if request.method == "POST":
-        username = request.POST.get("username", "")
-        password = request.POST.get("password", "")
-        if len(password) < 6 or not any(c.isdigit() for c in password):
-           security_logger.warning("Failed login username=%r ip=%s", username, client_ip(request))
-           return render(request, "core/error_state.html", {"error": "Password has to be +6 char and atleast 1 number!"})
-        with connection.cursor() as cursor:
-           cursor.execute(
-               "SELECT id, password FROM core_user WHERE username = %s LIMIT 1",
-               [username],
-           )
-           row = cursor.fetchone()
-        if not row:
-            # Hashing password still so query speed can't indicate if an account was found
-            security_logger.warning("Attempted to log to none existent user username=%r ip=%s", username, client_ip(request))
-            hash_password(password)
-            return render(request, "core/login.html", {"error": "Not authorized."}, status=403)
-        if not verify_password(password, row[1]):
-            security_logger.warning("Incorrect password on login username=%r ip=%s", username, client_ip(request))
-            return render(request, "core/login.html", {"error": "Not authorized."}, status=403)
-        request.session.cycle_key()
-        request.session["user_id"] = row[0]
-        security_logger.info("Successful login user_id=%s ip=%s", row[0], client_ip(request))
-        return redirect("/")
-
-    return render(request, "core/login.html")
+#    if request.method == "POST":
+#        username = request.POST.get("username", "")
+#       password = request.POST.get("password", "")
+#        if len(password) < 6 or not any(c.isdigit() for c in password):
+#           security_logger.warning("Failed login username=%r ip=%s", username, client_ip(request))
+#           return render(request, "core/error_state.html", {"error": "Password has to be +6 char and atleast 1 number!"})
+#        with connection.cursor() as cursor:
+#           cursor.execute(
+#               "SELECT id, password FROM core_user WHERE username = %s LIMIT 1",
+#               [username],
+#           )
+#           row = cursor.fetchone()
+#        if not row:
+#            # Hashing password still so query speed can't indicate if an account was found
+#            security_logger.warning("Attempted to log to none existent user username=%r ip=%s", username, client_ip(request))
+#            hash_password(password)
+#            return render(request, "core/login.html", {"error": "Not authorized."}, status=403)
+#        if not verify_password(password, row[1]):
+#            security_logger.warning("Incorrect password on login username=%r ip=%s", username, client_ip(request))
+#            return render(request, "core/login.html", {"error": "Not authorized."}, status=403)
+#        request.session.cycle_key()
+#        request.session["user_id"] = row[0]
+#        security_logger.info("Successful login user_id=%s ip=%s", row[0], client_ip(request))
+#        return redirect("/")
+#
+#    return render(request, "core/login.html")
 
 
 # THIS IS FINE
